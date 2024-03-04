@@ -48,6 +48,10 @@ export const RowMarkers: React.VFC<RowMarkersProps> = p => {
                 kind: p.markers,
                 checkboxStyle: "circle",
             }}
+            getRowMarkerData={row => {
+                const content = getCellContent([0, row]);
+                return (content as any).data;
+            }}
             columns={cols}
             rows={400}
         />

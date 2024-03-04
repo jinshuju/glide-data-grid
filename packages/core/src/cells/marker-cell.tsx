@@ -10,8 +10,16 @@ export const markerCellRenderer: InternalCellRenderer<MarkerCell> = {
     needsHoverPosition: false,
     drawPrep: prepMarkerRowCell,
     measure: () => 44,
-    draw: a =>
-        drawMarkerRowCell(a, a.cell.row, a.cell.checked, a.cell.markerKind, a.cell.drawHandle, a.cell.checkboxStyle),
+    draw: a => {
+        drawMarkerRowCell(
+            a,
+            (a.cell.data ?? a.cell.row).toString(),
+            a.cell.checked,
+            a.cell.markerKind,
+            a.cell.drawHandle,
+            a.cell.checkboxStyle
+        );
+    },
     onClick: e => {
         const { bounds, cell, posX: x, posY: y } = e;
         const { width, height } = bounds;
@@ -50,7 +58,7 @@ function deprepMarkerRowCell(args: Pick<BaseDrawArgs, "ctx">) {
 
 function drawMarkerRowCell(
     args: BaseDrawArgs,
-    index: number,
+    data: string,
     checked: boolean,
     markerKind: "checkbox" | "both" | "number" | "checkbox-visible",
     drawHandle: boolean,
@@ -93,7 +101,7 @@ function drawMarkerRowCell(
         ctx.globalAlpha = 1;
     }
     if (markerKind === "number" || (markerKind === "both" && !checked)) {
-        const text = index.toString();
+        const text = data;
         const fontStyle = theme.markerFontFull;
 
         const start = x + width / 2;

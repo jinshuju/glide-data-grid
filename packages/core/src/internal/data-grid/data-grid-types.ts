@@ -496,6 +496,7 @@ export interface MarkerCell extends BaseGridCell {
     readonly kind: InnerGridCellKind.Marker;
     readonly allowOverlay: false;
     readonly row: number;
+    readonly data?: string;
     readonly drawHandle: boolean;
     readonly checked: boolean;
     readonly checkboxStyle: "square" | "circle";
